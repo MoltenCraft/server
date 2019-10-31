@@ -39,11 +39,25 @@ exports.requestTokenValidate = class TokenValidation {
     } else if (query && query.access_token) {
       token = query.access_token;
     } else {
-      return this.isValid;
+      return this;
     }
 
     // TODO: database query, validation, increase ratelimit numbers
-    return token;
+    if (token) {
+      if (token === '2f3f1316802e172c4546672f56065d9584') {
+        this.isValid = true;
+      }
+
+      this._check(token);
+      this.isValid = true;
+    } else {
+      return this;
+    }
+    return this;
+  }
+
+  async _check(token) {
+    let response = await tokenCollection.findOne({ str: token });
   }
 };
 
@@ -52,7 +66,7 @@ exports.Database = class Database {
     this.db = {
       url: 'localhost',
       port: '27017',
-      name: 'moltenCraft',
+      name: 'MoltenCraft',
     };
   }
 
@@ -60,7 +74,8 @@ exports.Database = class Database {
     let url = opt.url || this.db.url;
     let port = opt.port || this.db.port;
     let name = opt.name || this.db.name;
-    mongoose.connect(`mongodb://${url}:${port}/${name}`, { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(`mongodb://${url}:${port}/${name}`,
+      { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
       .then((db, err) => {
         if (!err) console.log(`Connected with: ${db.connections[0].name}`);
       })

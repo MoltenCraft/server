@@ -1,7 +1,7 @@
 'use strict';
 
 const { requestTokenValidate } = require('../../config');
-const materailsCollection = require('../models/material');
+const materialsCollection = require('../models/material');
 const Router = require('express').Router();
 
 Router.get('/', (req, res) => {
