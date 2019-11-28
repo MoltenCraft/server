@@ -46,19 +46,24 @@ exports.requestTokenValidate = class TokenValidation {
     if (token) {
       if (token === '2f3f1316802e172c4546672f56065d9584') {
         this.isValid = true;
+      } else {
+        // let isExist = this._check(token);
+        // if (isExist) this.isValid = true;
       }
-
-      this._check(token);
-      this.isValid = true;
     } else {
       return this;
     }
     return this;
   }
 
-  async _check(token) {
-    let response = await tokenCollection.findOne({ str: token });
-  }
+  // async _check(token) {
+  //   let response = await tokenCollection.findOne({ str: token });
+  //   if (response) {
+  //     // do something
+  //   } else {
+  //     return false;
+  //   }
+  // }
 };
 
 exports.Database = class Database {
