@@ -78,5 +78,8 @@
         "**/.vscode/**",
         "**/.github/**",
         "**/.circleci/**"
-    ]
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }
